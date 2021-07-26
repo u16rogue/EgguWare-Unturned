@@ -1,6 +1,15 @@
 # EgguWare
-ultra gamer unturned cheat.
-source only, youre gonna have to find your own bypass/loader
+
+ultra gamer unturned cheat. youre gonna have to find your own bypass/loader
+
+Fixed by Gazzi
+
+## usage
+
+1. Download binaries from [Release](https://github.com/GazziFX/EgguWare-Unturned/releases) section
+2. Extract EgguWare folder to Modules
+3. Extract EgguWareV1.assets to Unturned_Data
+4. Launch game without BattlEye Anti-Cheat
 
 ## screenshots
 
