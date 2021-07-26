@@ -37,7 +37,7 @@ namespace EgguWare.Menu
         private Rect guiRect = new Rect(100, 755, 200, 250);
 
         readonly string Name = "EgguWare";
-        readonly string Version = "v1.0.6";
+        readonly string Version = "v1.0.7";
 
         void Start()
         {
