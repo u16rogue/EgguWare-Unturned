@@ -74,7 +74,7 @@ namespace EgguWare.Menu
                 GUI.skin = AssetUtilities.Skin;
 
                 if (_cursorTexture == null)
-                    _cursorTexture = Resources.Load("UI/Cursor") as Texture;
+                    _cursorTexture = Resources.Load("UI/Glazier_IMGUI/Cursor") as Texture;
 
                 GUI.depth = -1;
 

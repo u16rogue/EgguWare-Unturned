@@ -34,7 +34,7 @@ namespace EgguWare.Cheats
             }
 
             if (G.Settings.MiscOptions.Spam && !String.IsNullOrEmpty(G.Settings.MiscOptions.SpamText) && !PlayerLifeUI.chatting) // lets the player type in chat while spamming
-                ChatManager.instance.channel.send("askChat", ESteamCall.SERVER, ESteamPacket.UPDATE_RELIABLE_BUFFER, (byte)EChatMode.GLOBAL, G.Settings.MiscOptions.SpamText);
+                ChatManager.sendChat(EChatMode.GLOBAL, G.Settings.MiscOptions.SpamText);
         }
 
         void OnGUI()
