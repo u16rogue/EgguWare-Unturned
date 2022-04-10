@@ -32,6 +32,9 @@ namespace EgguWare.Menu.Tabs
                     DrawGlobals(G.Settings.PlayerOptions, "Players");
                     G.Settings.GlobalOptions.Weapon = GUILayout.Toggle(G.Settings.GlobalOptions.Weapon, "Show Weapon");
                     G.Settings.GlobalOptions.ViewHitboxes = GUILayout.Toggle(G.Settings.GlobalOptions.ViewHitboxes, "Show Expanded Hitboxes");
+                    G.Settings.PlayerOptions.RangeEngagementIndicator = GUILayout.Toggle(G.Settings.PlayerOptions.RangeEngagementIndicator, "Range engagement indicator");
+                    G.Settings.PlayerOptions.Visible = GUILayout.Toggle(G.Settings.PlayerOptions.Visible, "Visible (Trace)");
+
                     DrawGlobals2(G.Settings.PlayerOptions);
                     break;
                 case ESPObject.Storage:

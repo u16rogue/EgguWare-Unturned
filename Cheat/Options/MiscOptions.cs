@@ -13,7 +13,7 @@ namespace EgguWare.Options
         public bool FullBright = false;
         public bool VehicleNoClip = false;
         public bool Spam = false;
-        public string SpamText = "egguware lol";
+        public string SpamText = "nelson seggston";
         public bool ShowEgguwareUser = true;
         public bool AutoItemPickup = false;
         public string UISkin = "";

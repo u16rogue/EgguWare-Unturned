@@ -135,6 +135,56 @@ namespace EgguWare.Cheats
                             LabelText += $"<color=white> - {Weapon}</color>";
                             OutlineText += " - " + Weapon;
                         }
+                        if (G.Settings.PlayerOptions.Visible && T.VisibleFromCamera(player.transform.position))
+                        {
+                            LabelText += $"<color=white> [V]</color>";
+                            OutlineText += " [V]";
+                        }
+                        if (G.Settings.PlayerOptions.RangeEngagementIndicator)
+                        {
+                            float distance = T.GetDistance(player.transform.position);
+                            bool player_to_target = distance <= T.GetGunDistance();
+                            bool target_to_player = player.equipment.asset != null && distance <= ((((SteamPlayer)obj.Object).player.equipment.asset as ItemGunAsset)?.range ?? 15.5f);
+
+                            if (player_to_target && target_to_player)
+                            {
+                                LabelText += $"<color=white> - [R:Both]</color>";
+                                OutlineText += " - [R:Both]";
+                            }
+                            else if (player_to_target)
+                            {
+                                LabelText += $"<color=white> - [R:You]</color>";
+                                OutlineText += " - [R:You]";
+                            }
+                            else if (target_to_player)
+                            {
+                                LabelText += $"<color=white> - [R:Target]</color>";
+                                OutlineText += " - [R:Target]";
+                            }
+
+
+                            // text to small lol
+                            //if (player_to_target || target_to_player)
+                            //{
+                            //    LabelText += $"<color=white> </color>";
+                            //    OutlineText += " ";
+                            //
+                            //    if (target_to_player)
+                            //    {
+                            //        LabelText += $"<color=white><</color>";
+                            //        OutlineText += "<";
+                            //    }
+                            //
+                            //    LabelText += $"<color=white>-</color>";
+                            //    OutlineText += "-";
+                            //
+                            //    if (player_to_target)
+                            //    {
+                            //        LabelText += $"<color=white>></color>";
+                            //        OutlineText += ">";
+                            //    }
+                            //}
+                        }
                         if (G.Settings.GlobalOptions.ViewHitboxes && G.Settings.AimbotOptions.ExpandHitboxes && G.Settings.AimbotOptions.SilentAim)
                         {
                             Player p = ((SteamPlayer)obj.Object).player;

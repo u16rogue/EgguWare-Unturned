@@ -20,5 +20,8 @@ namespace EgguWare.Options.ESP
         public int MaxDistance = 400;
         public int FontSize = 11;
         public ShaderType ChamType = ShaderType.Material;
+
+        public bool RangeEngagementIndicator = false; // Indicates if current weapon can hit enemy and enemy can hit you back within range
+        public bool Visible = false; // Indicates if enemy is hittable (trace ray)
     }
 }

@@ -1,4 +1,16 @@
-# EgguWare
+# EgguWare+
+pasted unturned cheat with extended features:
+
+* fixed reference (for people who have default steam path (Gazzi's fork has it pointing in their own custom path))
+* Range engagement indicator (ESP)
+  * [R:You] Player can engage target
+  * [R:Target] Target can engage player
+  * [R:Both] Both can engage each other
+* Hittable indicator [H]
+* Ragebot on marked players
+* Autofire
+
+# EgguWare (Original README)
 
 ultra gamer unturned cheat. youre gonna have to find your own bypass/loader
 
