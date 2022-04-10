@@ -19,7 +19,11 @@ namespace EgguWare.Menu.Tabs
             GUILayout.BeginArea(new Rect(10, 35, 260, 400), style: "box", text: "Silent Aimbot");
             scrollPosition = GUILayout.BeginScrollView(scrollPosition);
             G.Settings.AimbotOptions.SilentAim = GUILayout.Toggle(G.Settings.AimbotOptions.SilentAim, "Silent Aim");
-            G.Settings.AimbotOptions.RageOnMarkedPlayers = GUILayout.Toggle(G.Settings.AimbotOptions.RageOnMarkedPlayers, "Rage on marked Players (Ignore FoV + Auto Target)");
+            G.Settings.AimbotOptions.RageOnMarkedPlayers = GUILayout.Toggle(G.Settings.AimbotOptions.RageOnMarkedPlayers, "Ragebot on marked Players");
+            G.Settings.AimbotOptions.AutoFire = GUILayout.Toggle(G.Settings.AimbotOptions.AutoFire, "Autofire");
+
+            GUILayout.Label("Override all aim FoV: " + G.Settings.AimbotOptions.aim_fov);
+            G.Settings.AimbotOptions.AimlockFOV = G.Settings.AimbotOptions.SilentAimFOV = G.Settings.AimbotOptions.aim_fov = (int)GUILayout.HorizontalSlider(G.Settings.AimbotOptions.SilentAimFOV, 0, 1200);
 
             if (G.Settings.AimbotOptions.SilentAim)
             {

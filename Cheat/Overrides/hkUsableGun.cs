@@ -33,7 +33,7 @@ namespace EgguWare.Overrides
 
             ItemGunAsset PAsset = (ItemGunAsset)Player.player.equipment.asset;
             PlayerLook Look = Player.player.look;
-
+            
             if (PAsset.projectile != null)
                 return;
 

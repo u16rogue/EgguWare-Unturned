@@ -30,7 +30,10 @@ namespace EgguWare.Options
         public bool ExpandHitboxes = true;
         public int HitChance = 100;
 
+        public int aim_fov = 30;
         public bool AimLockOnScope = false;
         public bool RageOnMarkedPlayers = false;
+        public bool AutoFire = false;
+        public bool TraceCheck = true;
     }
 }

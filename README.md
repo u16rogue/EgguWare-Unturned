@@ -10,6 +10,7 @@ pasted unturned cheat with extended features:
 * Ragebot on marked players
 * Autofire
 * Aimlock on scope
+* Trace check
 
 # EgguWare (Original README)
 

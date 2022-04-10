@@ -5,6 +5,7 @@ using System.Text;
 using EgguWare.Classes;
 using EgguWare.Options;
 using UnityEngine;
+using SDG.Unturned;
 
 namespace EgguWare
 {
@@ -15,5 +16,6 @@ namespace EgguWare
         public static Config Settings = new Config();
         public static bool BeingSpied = false;
         public static bool UnrestrictedMovement = false;
+        public static Player aim_target = null;
     }
 }

@@ -109,14 +109,7 @@ namespace EgguWare.Overrides
             float Range = currentGun?.range ?? 15.5f;
             Transform t = (Player.player.look.perspective == EPlayerPerspective.FIRST ? Player.player.look.aim : G.MainCamera.transform);
             info = OriginalRaycast(new Ray(t.position, t.forward), Range, RayMasks.DAMAGE_CLIENT);
-            Player aimplayer = null;
-            int? fov = null;
-            if (G.Settings.AimbotOptions.SilentAimLimitFOV)
-                fov = G.Settings.AimbotOptions.SilentAimFOV;
-            if (T.GetNearestPlayer(fov, (int)T.GetGunDistance()))
-                aimplayer = T.GetNearestPlayer();
-            else
-                return false;
+            Player aimplayer = G.aim_target;
 
             if (G.Settings.AimbotOptions.HitChance != 100)
                 if (!(T.Random.Next(0, 100) < G.Settings.AimbotOptions.HitChance))
@@ -128,6 +121,7 @@ namespace EgguWare.Overrides
             Component.LastHit = Time.realtimeSinceStartup;
 
             Vector3 point;
+
             if (T.VisibleFromCamera(T.GetLimbPosition(aimplayer.gameObject.transform, "Skull")))
                 point = T.GetLimbPosition(aimplayer.gameObject.transform, "Skull");
             else if (T.VisibleFromCamera(T.GetLimbPosition(aimplayer.gameObject.transform, "Spine")))
@@ -150,8 +144,7 @@ namespace EgguWare.Overrides
             if (G.Settings.TargetLimb.TryGetValue(aimplayer.channel.owner.playerID.steamID.m_SteamID, out TargetLimb limb))
                 if (limb != TargetLimb.GLOBAL)
                     lomb = T.GetLimb(limb);
-
-
+            
             info = new RaycastInfo(aimplayer.transform)
             {
                 point = point,

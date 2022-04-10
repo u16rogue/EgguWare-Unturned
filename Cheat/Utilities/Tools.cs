@@ -410,9 +410,16 @@ namespace EgguWare.Utilities
                 if (distance != null)
                     if ((int)Vector3.Distance(Player.player.look.aim.position, loopplayer.player.transform.position) > distance)
                         continue;
-                if (GetPriority(loopplayer.playerID.steamID.m_SteamID) == Priority.Friendly)
+                if (G.Settings.AimbotOptions.TraceCheck && !T.VisibleFromCamera(loopplayer.player.transform.position))
+                    continue;
+                Priority priority = GetPriority(loopplayer.playerID.steamID.m_SteamID);
+                if (priority == Priority.Friendly)
                     continue;
                 #endregion
+
+                if (G.Settings.AimbotOptions.RageOnMarkedPlayers && priority == Priority.Marked)
+                    return loopplayer.player;
+
                 Vector3 HeadScreenPoint1 = G.MainCamera.WorldToScreenPoint(GetLimbPosition(loopplayer.player.transform, "Skull"));
                 if (HeadScreenPoint1.z <= 0)
                     continue;
@@ -431,6 +438,7 @@ namespace EgguWare.Utilities
                 if (ToLoopPlayerPixels < ToReturnPlayerPixels)
                     returnplayer = loopplayer.player;
             }
+
             return returnplayer;
         }
 
