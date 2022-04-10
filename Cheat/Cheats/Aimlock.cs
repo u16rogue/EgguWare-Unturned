@@ -18,9 +18,11 @@ namespace EgguWare.Cheats
             // nothing intersting here
             if (G.Settings.AimbotOptions.Aimlock)
             {
-                if (Input.GetKeyDown(G.Settings.AimbotOptions.AimlockKey))
+                KeyCode aimkey = G.Settings.AimbotOptions.AimLockOnScope ? KeyCode.Mouse1 : G.Settings.AimbotOptions.AimlockKey;
+
+                if (Input.GetKeyDown(aimkey))
                     Aiming = true;
-                if (Input.GetKeyUp(G.Settings.AimbotOptions.AimlockKey))
+                if (Input.GetKeyUp(aimkey))
                     Aiming = false;
 
                 if (Aiming)

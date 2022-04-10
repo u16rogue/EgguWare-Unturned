@@ -6,9 +6,10 @@ pasted unturned cheat with extended features:
   * [R:You] Player can engage target
   * [R:Target] Target can engage player
   * [R:Both] Both can engage each other
-* Hittable indicator [H]
+* Visibility indicator [V]
 * Ragebot on marked players
 * Autofire
+* Aimlock on scope
 
 # EgguWare (Original README)
 

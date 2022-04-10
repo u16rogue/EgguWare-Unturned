@@ -29,5 +29,8 @@ namespace EgguWare.Options
         public bool SilentAimDrawFOV = true;
         public bool ExpandHitboxes = true;
         public int HitChance = 100;
+
+        public bool AimLockOnScope = false;
+        public bool RageOnMarkedPlayers = false;
     }
 }

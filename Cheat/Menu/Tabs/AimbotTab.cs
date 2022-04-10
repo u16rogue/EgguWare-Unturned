@@ -19,6 +19,8 @@ namespace EgguWare.Menu.Tabs
             GUILayout.BeginArea(new Rect(10, 35, 260, 400), style: "box", text: "Silent Aimbot");
             scrollPosition = GUILayout.BeginScrollView(scrollPosition);
             G.Settings.AimbotOptions.SilentAim = GUILayout.Toggle(G.Settings.AimbotOptions.SilentAim, "Silent Aim");
+            G.Settings.AimbotOptions.RageOnMarkedPlayers = GUILayout.Toggle(G.Settings.AimbotOptions.RageOnMarkedPlayers, "Rage on marked Players (Ignore FoV + Auto Target)");
+
             if (G.Settings.AimbotOptions.SilentAim)
             {
                 // here is where i was gonna add silent aim objects
@@ -69,7 +71,9 @@ namespace EgguWare.Menu.Tabs
             G.Settings.AimbotOptions.Aimlock = GUILayout.Toggle(G.Settings.AimbotOptions.Aimlock, "Aimlock");
             if (G.Settings.AimbotOptions.Aimlock)
             {
-                if (GUILayout.Button("Aimlock Key: " + G.Settings.AimbotOptions.AimlockKey.ToString()))
+                G.Settings.AimbotOptions.AimLockOnScope = GUILayout.Toggle(G.Settings.AimbotOptions.AimLockOnScope, "Aim Lock on scope");
+
+                if (!G.Settings.AimbotOptions.AimLockOnScope && GUILayout.Button("Aimlock Key: " + G.Settings.AimbotOptions.AimlockKey.ToString()))
                     G.Settings.AimbotOptions.AimlockKey = KeyCode.None;
 
                 //G.Settings.AimbotOptions.OnlyVisible = GUILayout.Toggle(G.Settings.AimbotOptions.OnlyVisible, "Only Aim At Visible Targets");
