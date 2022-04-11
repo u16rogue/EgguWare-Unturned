@@ -103,7 +103,7 @@ namespace EgguWare.Overrides
         #endregion
 
         #region Sphere Silent Aim
-        public static bool SilAimRaycast(out RaycastInfo info, bool precheck = false)
+        public static bool SilAimRaycast(out RaycastInfo info, bool maincheck = true)
         {
             ItemGunAsset currentGun = Player.player.equipment.asset as ItemGunAsset;
             float Range = currentGun?.range ?? 15.5f;
@@ -119,7 +119,7 @@ namespace EgguWare.Overrides
             else
                 return false;
 
-            if (precheck && G.Settings.AimbotOptions.HitChance != 100)
+            if (maincheck && G.Settings.AimbotOptions.HitChance != 100)
                 if (!(T.Random.Next(0, 100) < G.Settings.AimbotOptions.HitChance))
                     return false;
 

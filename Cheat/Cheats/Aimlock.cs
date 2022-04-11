@@ -60,7 +60,7 @@ namespace EgguWare.Cheats
 
             // if no target is found try if silaim can
             RaycastInfo ri;
-            if (aimtarget is null && Overrides.hkDamageTool.SilAimRaycast(out ri, true) && ri.player != null)
+            if (aimtarget is null && Overrides.hkDamageTool.SilAimRaycast(out ri, false) && ri.player != null)
                 aimtarget = ri.player;
 
             // no target, abort
