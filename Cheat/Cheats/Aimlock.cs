@@ -55,7 +55,9 @@ namespace EgguWare.Cheats
                     fov = G.Settings.AimbotOptions.aim_fov;
                 Player t = T.GetNearestPlayer(fov, (int)T.GetGunDistance());
                 if (t != null)
+                {
                     aimtarget = t;
+                }
             }
 
             bool is_silent = false;
@@ -88,7 +90,7 @@ namespace EgguWare.Cheats
             }
 
             // If we were aimbotting start locking here
-            if (Aiming)
+            if (Aiming && !is_silent)
                 T.AimAt(T.GetLimbPosition(aimtarget.transform, "Skull"));
 
             // Abort if we are already auto firing
