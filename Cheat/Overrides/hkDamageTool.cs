@@ -109,18 +109,15 @@ namespace EgguWare.Overrides
             float Range = currentGun?.range ?? 15.5f;
             Transform t = (Player.player.look.perspective == EPlayerPerspective.FIRST ? Player.player.look.aim : G.MainCamera.transform);
             info = OriginalRaycast(new Ray(t.position, t.forward), Range, RayMasks.DAMAGE_CLIENT);
-            
-            Player aimplayer = G.aim_target;
-            if (aimplayer == null)
-            {
-                int? fov = null;
-                if (G.Settings.AimbotOptions.SilentAimLimitFOV)
-                    fov = G.Settings.AimbotOptions.SilentAimFOV;
-                if (T.GetNearestPlayer(fov, (int)T.GetGunDistance()))
-                    aimplayer = T.GetNearestPlayer();
-                else
-                    return false;
-            }
+
+            Player aimplayer = null;
+            int? fov = null;
+            if (G.Settings.AimbotOptions.SilentAimLimitFOV)
+                fov = G.Settings.AimbotOptions.SilentAimFOV;
+            if (T.GetNearestPlayer(fov, (int)T.GetGunDistance()))
+                aimplayer = T.GetNearestPlayer();
+            else
+                return false;
 
             if (precheck && G.Settings.AimbotOptions.HitChance != 100)
                 if (!(T.Random.Next(0, 100) < G.Settings.AimbotOptions.HitChance))

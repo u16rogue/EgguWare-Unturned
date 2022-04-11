@@ -15,74 +15,74 @@ namespace EgguWare.Cheats
     {
         public static bool Aiming = false;
         static bool autofired_last = false;
-        public static InputSimulator lol = new InputSimulator();
+        private static Player aimtarget = null;
+        private static InputSimulator lol = new InputSimulator();
         void Update()
         {
-            // should aimlock?
+            // Toggle aiming
             if (G.Settings.AimbotOptions.Aimlock)
             {
-                KeyCode aimkey = G.Settings.AimbotOptions.AimLockOnScope ? KeyCode.Mouse1 : G.Settings.AimbotOptions.AimlockKey;
-
-                if (Input.GetKeyDown(aimkey))
+                KeyCode k = G.Settings.AimbotOptions.AimLockOnScope ? KeyCode.Mouse1 : G.Settings.AimbotOptions.AimlockKey;
+                if (Input.GetKeyDown(k))
                     Aiming = true;
-                if (Input.GetKeyUp(aimkey))
+                else if (Input.GetKeyUp(k))
                     Aiming = false;
+
             }
-            else if (Aiming)
+            else if (Aiming) // if aimlock was turned off and aiming was on
             {
                 Aiming = false;
             }
 
-            // Target selection
-            if (Aiming || G.Settings.AimbotOptions.SilentAim)
-            {
-                int? fov = null;
-                if (G.Settings.AimbotOptions.aim_fov != 0)
-                    fov = G.Settings.AimbotOptions.aim_fov;
-                G.aim_target = T.GetNearestPlayer(fov, (int)T.GetGunDistance());
-            }
-            else if (G.aim_target != null)
-            {
-                G.aim_target = null;
-            }
-
+            Player local = Player.player;
             UseableGun ug = Player.player?.equipment?.useable as UseableGun;
+            bool equip_busy = local.equipment.isBusy;
 
-            if (ug != null && autofired_last && (G.aim_target == null || Cursor.visible || Player.player.equipment.isBusy))
+            // rest trigger
+            if (autofired_last && (Menu.Main.MenuOpen || aimtarget is null || Cursor.visible || equip_busy || ug is null))
             {
                 lol.Mouse.LeftButtonUp();
                 autofired_last = false;
             }
 
-            // -------------------------------------------------------
+            aimtarget = null; // reset
 
-            if (G.aim_target == null)
-                return;
-
-            // aimlock
+            // Check if aimbot can target player
             if (Aiming)
             {
-                Vector3 HeadPos = T.GetLimbPosition(G.aim_target.transform, "Skull");
-                T.AimAt(HeadPos);
+                int? fov = null;
+                if (G.Settings.AimbotOptions.aim_fov != 0)
+                    fov = G.Settings.AimbotOptions.aim_fov;
+                Player t = T.GetNearestPlayer(fov, (int)T.GetGunDistance());
+                if (t != null)
+                    aimtarget = t;
             }
 
-            bool will_autofire = ug != null && !Cursor.visible && (G.Settings.AimbotOptions.AutoFire || G.Settings.AimbotOptions.RageOnMarkedPlayers && T.GetPriority(T.GetSteamPlayer(G.aim_target).playerID.steamID.m_SteamID) == Classes.Priority.Marked);
-
-            // if we are not aiming and we are about to silent aim but the silent aim will miss prevent auto firing
+            // if no target is found try if silaim can
             RaycastInfo ri;
-            if (will_autofire && !Aiming && G.Settings.AimbotOptions.SilentAim && !Overrides.hkDamageTool.SilAimRaycast(out ri))
-            {
-                G.aim_target = null;
+            if (aimtarget is null && Overrides.hkDamageTool.SilAimRaycast(out ri, true) && ri.player != null)
+                aimtarget = ri.player;
+
+            // no target, abort
+            if (aimtarget is null)
                 return;
-            }
 
-            // auto fire
-            if (will_autofire)
+            // Trace check
+            if (G.Settings.AimbotOptions.TraceCheck && !T.VisibleFromCamera(aimtarget.transform.position))
+                return;
+
+            // If we were aimbotting start locking here
+            if (Aiming)
+                T.AimAt(T.GetLimbPosition(aimtarget.transform, "Skull"));
+
+            // Abort if we are already auto firing
+            if (autofired_last)
+                return;
+
+            // Check if we should auto fire, if auto fire is off but target is marked, override it
+            bool should_af = G.Settings.AimbotOptions.AutoFire || T.GetPriority(T.GetSteamPlayer(aimtarget).playerID.steamID.m_SteamID) == Classes.Priority.Marked;
+            if (should_af && !equip_busy && !Menu.Main.MenuOpen)
             {
-                Player local = Player.player;
-                if (local.equipment.isBusy)
-                    return;
-
                 lol.Mouse.LeftButtonDown();
                 autofired_last = true;
             }
