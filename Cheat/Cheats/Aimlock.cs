@@ -58,18 +58,34 @@ namespace EgguWare.Cheats
                     aimtarget = t;
             }
 
+            bool is_silent = false;
             // if no target is found try if silaim can
             RaycastInfo ri;
             if (aimtarget is null && Overrides.hkDamageTool.SilAimRaycast(out ri, false) && ri.player != null)
+            {
+                is_silent = true;
                 aimtarget = ri.player;
+            }
 
             // no target, abort
             if (aimtarget is null)
                 return;
 
+            bool rageontarget = T.GetPriority(T.GetSteamPlayer(aimtarget).playerID.steamID.m_SteamID) == Classes.Priority.Marked;
+
             // Trace check
-            if (G.Settings.AimbotOptions.TraceCheck && !T.VisibleFromCamera(aimtarget.transform.position))
-                return;
+            if (G.Settings.AimbotOptions.TraceCheck)
+            {
+                // if its silent and the target should be raged at dont check for trace anymore
+                if (is_silent && rageontarget)
+                {
+                }
+                else
+                {
+                    if (!T.VisibleFromCamera(aimtarget.transform.position))
+                        return;
+                }
+            }
 
             // If we were aimbotting start locking here
             if (Aiming)
@@ -80,7 +96,7 @@ namespace EgguWare.Cheats
                 return;
 
             // Check if we should auto fire, if auto fire is off but target is marked, override it
-            bool should_af = G.Settings.AimbotOptions.AutoFire || T.GetPriority(T.GetSteamPlayer(aimtarget).playerID.steamID.m_SteamID) == Classes.Priority.Marked;
+            bool should_af = G.Settings.AimbotOptions.AutoFire || rageontarget;
             if (should_af && !equip_busy && !Menu.Main.MenuOpen)
             {
                 lol.Mouse.LeftButtonDown();
