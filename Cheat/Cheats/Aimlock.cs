@@ -47,6 +47,7 @@ namespace EgguWare.Cheats
             }
 
             UseableGun ug = Player.player?.equipment?.useable as UseableGun;
+
             if (ug != null && autofired_last && (G.aim_target == null || Cursor.visible || Player.player.equipment.isBusy))
             {
                 lol.Mouse.LeftButtonUp();
@@ -55,15 +56,28 @@ namespace EgguWare.Cheats
 
             // -------------------------------------------------------
 
+            if (G.aim_target == null)
+                return;
+
             // aimlock
-            if (Aiming && G.aim_target != null)
+            if (Aiming)
             {
                 Vector3 HeadPos = T.GetLimbPosition(G.aim_target.transform, "Skull");
                 T.AimAt(HeadPos);
             }
 
+            bool will_autofire = ug != null && !Cursor.visible && (G.Settings.AimbotOptions.AutoFire || G.Settings.AimbotOptions.RageOnMarkedPlayers && T.GetPriority(T.GetSteamPlayer(G.aim_target).playerID.steamID.m_SteamID) == Classes.Priority.Marked);
+
+            // if we are not aiming and we are about to silent aim but the silent aim will miss prevent auto firing
+            RaycastInfo ri;
+            if (will_autofire && !Aiming && G.Settings.AimbotOptions.SilentAim && !Overrides.hkDamageTool.SilAimRaycast(out ri))
+            {
+                G.aim_target = null;
+                return;
+            }
+
             // auto fire
-            if (G.aim_target != null && ug != null && !Cursor.visible && (G.Settings.AimbotOptions.AutoFire || G.Settings.AimbotOptions.RageOnMarkedPlayers && T.GetPriority(T.GetSteamPlayer(G.aim_target).playerID.steamID.m_SteamID) == Classes.Priority.Marked))
+            if (will_autofire)
             {
                 Player local = Player.player;
                 if (local.equipment.isBusy)
@@ -73,6 +87,7 @@ namespace EgguWare.Cheats
                 autofired_last = true;
             }
         }
+
         void OnGUI()
         {
             if (!G.BeingSpied && Provider.isConnected)

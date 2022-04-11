@@ -103,15 +103,26 @@ namespace EgguWare.Overrides
         #endregion
 
         #region Sphere Silent Aim
-        public static bool SilAimRaycast(out RaycastInfo info)
+        public static bool SilAimRaycast(out RaycastInfo info, bool precheck = false)
         {
             ItemGunAsset currentGun = Player.player.equipment.asset as ItemGunAsset;
             float Range = currentGun?.range ?? 15.5f;
             Transform t = (Player.player.look.perspective == EPlayerPerspective.FIRST ? Player.player.look.aim : G.MainCamera.transform);
             info = OriginalRaycast(new Ray(t.position, t.forward), Range, RayMasks.DAMAGE_CLIENT);
+            
             Player aimplayer = G.aim_target;
+            if (aimplayer == null)
+            {
+                int? fov = null;
+                if (G.Settings.AimbotOptions.SilentAimLimitFOV)
+                    fov = G.Settings.AimbotOptions.SilentAimFOV;
+                if (T.GetNearestPlayer(fov, (int)T.GetGunDistance()))
+                    aimplayer = T.GetNearestPlayer();
+                else
+                    return false;
+            }
 
-            if (G.Settings.AimbotOptions.HitChance != 100)
+            if (precheck && G.Settings.AimbotOptions.HitChance != 100)
                 if (!(T.Random.Next(0, 100) < G.Settings.AimbotOptions.HitChance))
                     return false;
 

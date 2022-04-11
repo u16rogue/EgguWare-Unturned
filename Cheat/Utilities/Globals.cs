@@ -16,6 +16,8 @@ namespace EgguWare
         public static Config Settings = new Config();
         public static bool BeingSpied = false;
         public static bool UnrestrictedMovement = false;
+
         public static Player aim_target = null;
+        public static bool should_silent = false;
     }
 }
