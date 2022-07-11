@@ -91,11 +91,11 @@ namespace EgguWare.Overrides
                 }
                 if (raycastInfo.zombie != null && raycastInfo.zombie.isRadioactive)
                 {
-                    raycastInfo.material = EPhysicsMaterial.ALIEN_DYNAMIC;
+                    raycastInfo.materialName = "ALIEN_DYNAMIC";
                 }
                 else
                 {
-                    raycastInfo.material = DamageTool.getMaterial(hit.point, raycastInfo.transform, raycastInfo.collider);
+                    raycastInfo.materialName = PhysicsTool.GetMaterialName(hit.point, raycastInfo.transform, raycastInfo.collider);
                 }
             }
             return raycastInfo;
