@@ -48,7 +48,7 @@ namespace EgguWare.Overrides
         public static RaycastInfo OriginalRaycast(Ray ray, float range, int mask, Player ignorePlayer = null)
         {
             RaycastHit hit;
-            PhysicsUtility.raycast(ray, out hit, range, mask, QueryTriggerInteraction.UseGlobal);
+            Physics.Raycast(ray, out hit, range, mask);
             RaycastInfo raycastInfo = new RaycastInfo(hit);
             raycastInfo.direction = ray.direction;
             raycastInfo.limb = ELimb.SPINE;
@@ -109,7 +109,7 @@ namespace EgguWare.Overrides
             float Range = currentGun?.range ?? 15.5f;
             Transform t = (Player.player.look.perspective == EPlayerPerspective.FIRST ? Player.player.look.aim : G.MainCamera.transform);
             info = OriginalRaycast(new Ray(t.position, t.forward), Range, RayMasks.DAMAGE_CLIENT);
-            Player aimplayer = null;
+            Player aimplayer;
             int? fov = null;
             if (G.Settings.AimbotOptions.SilentAimLimitFOV)
                 fov = G.Settings.AimbotOptions.SilentAimFOV;
@@ -157,7 +157,7 @@ namespace EgguWare.Overrides
                 point = point,
                 direction = Player.player.look.aim.forward,
                 limb = lomb,
-                material = EPhysicsMaterial.NONE,
+                materialName = PhysicsTool.GetMaterialName(point, aimplayer.transform, aimplayer.third.gameObject.GetComponentInChildren<Collider>()),
                 player = aimplayer,
             };
             return true;

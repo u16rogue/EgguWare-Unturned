@@ -38,6 +38,9 @@
     <Reference Include="Assembly-CSharp">
       <HintPath>E:\Steam\steamapps\common\Unturned\Unturned_Data\Managed\Assembly-CSharp.dll</HintPath>
     </Reference>
+    <Reference Include="com.rlabrecque.steamworks.net">
+      <HintPath>E:\Steam\steamapps\common\Unturned\Unturned_Data\Managed\com.rlabrecque.steamworks.net.dll</HintPath>
+    </Reference>
     <Reference Include="HighlightingSystem">
       <HintPath>E:\Steam\steamapps\common\Unturned\Unturned_Data\Managed\HighlightingSystem.dll</HintPath>
     </Reference>
@@ -52,9 +55,6 @@
     </Reference>
     <Reference Include="SDG.NetTransport">
       <HintPath>E:\Steam\steamapps\common\Unturned\Unturned_Data\Managed\SDG.NetTransport.dll</HintPath>
-    </Reference>
-    <Reference Include="Steamworks.NET">
-      <HintPath>E:\Steam\steamapps\common\Unturned\Unturned_Data\Managed\Steamworks.NET.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="UnityEngine">
