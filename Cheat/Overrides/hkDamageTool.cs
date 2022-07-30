@@ -48,7 +48,7 @@ namespace EgguWare.Overrides
         public static RaycastInfo OriginalRaycast(Ray ray, float range, int mask, Player ignorePlayer = null)
         {
             RaycastHit hit;
-            PhysicsUtility.raycast(ray, out hit, range, mask, QueryTriggerInteraction.UseGlobal);
+            Physics.Raycast(ray, out hit, range, mask);
             RaycastInfo raycastInfo = new RaycastInfo(hit);
             raycastInfo.direction = ray.direction;
             raycastInfo.limb = ELimb.SPINE;
@@ -91,11 +91,11 @@ namespace EgguWare.Overrides
                 }
                 if (raycastInfo.zombie != null && raycastInfo.zombie.isRadioactive)
                 {
-                    raycastInfo.material = EPhysicsMaterial.ALIEN_DYNAMIC;
+                    raycastInfo.materialName = "ALIEN_DYNAMIC";
                 }
                 else
                 {
-                    raycastInfo.material = DamageTool.getMaterial(hit.point, raycastInfo.transform, raycastInfo.collider);
+                    raycastInfo.materialName = PhysicsTool.GetMaterialName(hit.point, raycastInfo.transform, raycastInfo.collider);
                 }
             }
             return raycastInfo;
@@ -158,7 +158,7 @@ namespace EgguWare.Overrides
                 point = point,
                 direction = Player.player.look.aim.forward,
                 limb = lomb,
-                material = EPhysicsMaterial.NONE,
+                materialName = PhysicsTool.GetMaterialName(point, aimplayer.transform, aimplayer.third.gameObject.GetComponentInChildren<Collider>()),
                 player = aimplayer,
             };
             return true;

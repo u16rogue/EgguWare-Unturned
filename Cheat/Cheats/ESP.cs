@@ -187,7 +187,6 @@ namespace EgguWare.Cheats
                         }
                         if (G.Settings.GlobalOptions.ViewHitboxes && G.Settings.AimbotOptions.ExpandHitboxes && G.Settings.AimbotOptions.SilentAim)
                         {
-                            Player p = ((SteamPlayer)obj.Object).player;
                             Vector3 W2SPlayer = T.WorldToScreen(player.transform.position);
                             if (W2SPlayer.z >= 0)
                             {
@@ -246,14 +245,12 @@ namespace EgguWare.Cheats
                         break;
                     case ESPObject.Storage:
 
-                        BarricadeData bdata = null;
+                        BarricadeDrop bdrop = null;
                         if (obj.Options.Name || G.Settings.GlobalOptions.ShowLocked)
                         {
                             try
                             {
-                                BarricadeRegion r;
-                                if (BarricadeManager.tryGetInfo(((InteractableStorage)obj.Object).transform, out byte x, out byte y, out ushort plant, out ushort index, out r))
-                                    bdata = r.barricades[index];
+                                bdrop = BarricadeManager.FindBarricadeByRootTransform(((InteractableStorage)obj.Object).transform);
                             }
                             catch (Exception ex)
                             {
@@ -264,8 +261,8 @@ namespace EgguWare.Cheats
                         if (obj.Options.Name)
                         {
                             string s = "Storage";
-                            if (bdata != null)
-                                s = bdata.barricade.asset.name.Replace("_", " ");
+                            if (bdrop != null)
+                                s = bdrop.asset.itemName;
 
                             LabelText += s;
                             OutlineText += s;
@@ -273,9 +270,9 @@ namespace EgguWare.Cheats
 
                         if (G.Settings.GlobalOptions.ShowLocked)
                         {
-                            if (bdata != null)
+                            if (bdrop != null)
                             {
-                                if (bdata.barricade.asset.isLocked)
+                                if (bdrop.asset.isLocked)
                                 {
                                     LabelText += $"<color=white> - Locked</color>";
                                     OutlineText += " - Locked";

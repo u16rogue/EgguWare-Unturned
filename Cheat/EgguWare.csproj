@@ -47,6 +47,9 @@
     <Reference Include="com.rlabrecque.steamworks.net">
       <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Unturned\Unturned_Data\Managed\com.rlabrecque.steamworks.net.dll</HintPath>
     </Reference>
+    <Reference Include="com.rlabrecque.steamworks.net">
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Unturned\Unturned_Data\Managed\com.rlabrecque.steamworks.net.dll</HintPath>
+    </Reference>
     <Reference Include="HighlightingSystem">
       <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Unturned\Unturned_Data\Managed\HighlightingSystem.dll</HintPath>
     </Reference>
